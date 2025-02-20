@@ -51,7 +51,7 @@ const {
   checkQRISStatus
 } = require('./function/orkut.js') 
 
-
+const dns = require("dns").promises;
 app.enable("trust proxy");
 app.set("json spaces", 2);
 app.use(cors());
@@ -59,7 +59,40 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "function")));
 app.use(bodyParser.raw({ limit: '50mb', type: '*/*' }))
+async function getSubdomains(domain) {
+    try {
+        const res = await axios.get(`https://crt.sh/?q=%25.${domain}&output=json`);
+        const subdomains = new Set(res.data.map(entry => entry.name_value));
+        return [...subdomains];
+    } catch (err) {
+        return [];
+    }
+}
 
+// API Endpoint
+app.get("/api/search/subdomain", async (req, res) => {
+    const { url } = req.query;
+    if (!url) return res.status(400).json({ error: "Parameter 'url' wajib diisi!" });
+
+    try {
+        const subdomains = await getSubdomains(url);
+
+        // Membuat subdomains dalam bentuk array terstruktur
+        const formattedSubdomains = subdomains.map(subdomain => subdomain.replace(/\n/g, ''));
+
+        const result = {
+            creator: "RiiCODE",
+            data: url,
+            subdomains: formattedSubdomains
+        };
+
+        // Menggunakan JSON.stringify dengan indentasi 2 untuk pretty print
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(result, null, 2));  // pretty print dengan indentasi 2
+    } catch (err) {
+        res.status(500).json({ error: "Gagal mendapatkan subdomain" });
+    }
+})
 
 app.get('/api/orkut/createpayment', async (req, res) => {
     const { apikey, amount } = req.query;
