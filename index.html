@@ -1,157 +1,140 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RiiCODE X API - Kumpulan endpoint API untuk berbagai Aoi Buat Downloader / Fetcher & Api Ini Tersedia Dan bisa di pakai di Script Bot / Script Website">
     <title>RiiCODE X API</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="icon" href="/icon.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #0f172a;
-         
             font-family: "Poppins", sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
         }
-        
-        @keyframes colorChange {
-    0% { color: purple; }
-    50% { color: rgb(84, 190, 255); }
-    70% { color: #2e2e2e; }
-    100% { color: purple; }
-        }
-
         .container {
+            width: 90%;
             max-width: 800px;
-            margin: 0 auto;
-            padding: 16px;
+            padding: 20px;
         }
-        
         .text-center {
-            text-align: left;
-            padding-bottom: 20px;
-            margin: 0 10px;
+            text-align: center;
+            margin-bottom: 20px;
         }
-        
-        
-        .text-center h1 span {
-          font-size: 12px;
-          background-color: rgba(84, 190, 255, 0.8);
-          padding: 2px 3px;
-          border-radius: 8px;
-          color: black;
-        }
-        
-        .text-purple-700 {
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
             color: #6B21A8;
+            animation: colorChange 8s infinite alternate;
         }
-        
-        .text-gray-600 {
-          font-weight: 470;
+        @keyframes colorChange {
+            0%, 100% { color: #6B21A8; }
+            50% { color: #54BEFF; }
         }
-        
-        .text-center h1 {
-          animation: colorChange 15s infinite alternate;
-        }
-        
         .link a {
-          text-decoration: none;
-          color: blue;
-          font-size: 15px;
-          font-weight: 420;
+            display: block;
+            color: #54BEFF;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 5px;
+            transition: color 0.3s;
         }
-       
-        
+        .link a:hover {
+            color: #ffc107;
+        }
         .card {
-          margin: 2.5rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
         }
-        
+        .card:hover {
+            transform: translateY(-5px);
+        }
         .card .title {
-          font-size: 22px;
-          font-weight: 505;
-          margin: 0 10px;
-          color: #ffc107;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffc107;
+            margin-bottom: 10px;
         }
-        
-        .card .endpoints {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-bottom: solid 2px rgba(0, 0, 0, 0.1);
-          background-color: rgba(84, 190, 255, 0);
-          margin: 8px 10px;
-          height: 40px;
+        .endpoints {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        .card .endpoints .method {
-          background-color: rgba(84, 190, 255, 1);
-          border-radius: 130px;
-          padding: 2px 7px;
-          margin: 8px 8px;
-          font-family: "Poppins", sans-serif;
-          font-weight: 600;
-          color: white;
-          font-size: 16px;
+        .method {
+            background-color: #54B;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
         }
-        
-        .card .endpoints a {
-          background-color: #12ff1e;
-          border-radius: 130px;
-          padding: 2px 7px;
-          margin: 8px 8px;
-          font-family: "Poppins", sans-serif;
-          font-weight: 600;
-          color: white;
-          font-size: 16px;
+        .name {
+            flex-grow: 1;
+            text-align: left;
+            padding-left: 10px;
+        }
+        .try-btn {
+            background-color: #8b21ed;
+            padding: 5px 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            transition: background 0.3s;
+        }
+        .link-btn {
+          background-color: #0e5ce3;
+          padding: 5px 10px;
+          border-radius: 50px;
           text-decoration: none;
+          font-weight: 600;
+          color: #ffc20d;
+          transition: background 0.3s;
         }
-        
-        .card .endpoints a:hover {
-          background-color: rgba(84, 190, 255, 1);
+        .try-btn:hover {
+            background-color: #54BEFF;
         }
-        
-        .card .endpoints .name {
-          font-size: 14px;
-          font-weight: 580;
-          font-family: "Poppins", sans-serif;
-          color : white;
-        }
-
-
     </style>
 </head>
 <body>
     <div class="container">
         <div class="text-center">
-            <h1 class="font-bold text-purple-700">RiiCODE X API <span>v1.0.0</span></h1>
+            <h1>RiiCODE X API <span style="background:rgba(84, 190, 255, 0.8); padding: 3px 6px; border-radius: 8px; color:black; font-size: 12px;">New Version</span></h1>
             <div class="link">
-                <a href="https://wa.me/6283161246809" class="text-blue-500">Contact the developer</a>
-            </div>
-            <div class="link">
-                <a href="https://whatsapp.com/channel/0029Vb5iD5S5kg710a3B6c2G" class="text-blue-500">API Development Information</a>
+                <a class="link-btn" href="https://wa.me/6283161246809" target="_blank" rel="noopener noreferrer">Contact the Developer</a>
+                <a class="link-btn" href="https://whatsapp.com/channel/0029Vb76JSUHVvTVNPRIPP3v" target="_blank" rel="noopener noreferrer">API Development Info</a>
             </div>
         </div>
-        
-<!-- Start Endpoints -->
-        <div class="card">
+
+    <div class="card">
         
   <div class="title">Orderkuota Gateway</div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Create Payment</p>
-            <a href="/api/orkut/createpayment?apikey=&amount=&codeqr=">TRY</i></a>
+            <a class="try-btn" href="/api/orkut/createpayment?apikey=&amount=&codeqr=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Cek Status</p>
-            <a href="/api/orkut/cekstatus?apikey=&merchant=&keyorkut=">TRY</i></a>
+            <a class="try-btn" href="/api/orkut/cekstatus?apikey=&merchant=&keyorkut=">TRY</i></a>
           </div>
-          
         </div>
 <!-- Stop Endpoints -->
 
@@ -164,73 +147,73 @@
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Tiktok</p>
-            <a href="/api/download/tiktokdl?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/tiktokdl?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Facebook</p>
-            <a href="/api/download/fbdl?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/fbdl?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Instagram</p>
-            <a href="/api/download/igdl?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/igdl?url=">TRY</i></a>
           </div> 
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Ytmp3</p>
-            <a href="/api/download/ytmp3?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/ytmp3?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Ytmp4</p>
-            <a href="/api/download/ytmp4?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/ytmp4?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Capcut</p>
-            <a href="/api/download/capcut?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/capcut?url=">TRY</i></a>
           </div>                                 
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Doodstream</p>
-            <a href="/api/download/doodstream?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/doodstream?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Google Drive</p>
-            <a href="/api/download/gdrive?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/gdrive?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Pinterest Video</p>
-            <a href="#">TRY</i></a>
+            <a class="try-btn" href="/api/search/pinterest?q=">TRY</i></a>
           </div>
                                         
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Soundcloud</p>
-            <a href="/api/download/pindlvid?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/pindlvid?url=">TRY</i></a>
           </div>        
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Snackvideo</p>
-            <a href="/api/download/snackvideo?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/snackvideo?url=">TRY</i></a>
           </div>           
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">XNXX</p>
-            <a href="/api/download/xnxxdl?url=">TRY</i></a>
+            <a class="try-btn" href="/api/download/xnxxdl?url=">TRY</i></a>
           </div>              
           
         </div>
@@ -245,49 +228,49 @@
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Openai</p>
-            <a href="/api/ai/openai?msg=">TRY</i></a>
+            <a class="try-btn" href="/api/ai/openai?msg=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Openai Prompt</p>
-            <a href="/api/ai/openai-prompt?prompt=&msg=">TRY</i></a>
+            <a class="try-btn" href="/api/ai/openai-prompt?prompt=&msg=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Blackbox</p>
-            <a href="/api/ai/blackbox?msg=">TRY</i></a>
+            <a class="try-btn" href="/api/ai/blackbox?msg=">TRY</i></a>
           </div>          
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">DeepSeek</p>
-            <a href="/api/ai/deepseek?msg=">TRY</i></a>
+            <a class="try-btn" href="/api/ai/deepseek?msg=">TRY</i></a>
           </div>          
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">GPT 4</p>
-            <a href="/api/ai/gpt4?text=">TRY</i></a>
+            <a class="try-btn" href="/api/ai/gpt4?text=">TRY</i></a>
           </div> 
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">GPT 3.5 Turbo</p>
-            <a href="/api/ai/gpt-3-5-turbo?text=">TRY</i></a>
+            <a class="try-btn" href="/api/ai/gpt-3-5-turbo?text=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Gemini</p>
-            <a href="/api/ai/gemini?text="">TRY</i></a>
+            <a class="try-btn" href="/api/ai/gemini?text="">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Sim Simi</p>
-            <a href="/api/ai/simsimi?msg=">TRY</i></a>
+            <a class="try-btn" href="/api/ai/simsimi?msg=">TRY</i></a>
           </div>                    
           
         </div>
@@ -302,13 +285,13 @@
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Shortlink Tinyurl</p>
-            <a href="/api/tools/tinyurl?url=">TRY</i></a>
+            <a class="try-btn" href="/api/tools/tinyurl?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Shortlink Isgd</p>
-            <a href="/api/tools/isgd?url=">TRY</i></a>
+            <a class="try-btn" href="/api/tools/isgd?url=">TRY</i></a>
           </div>
           
         </div>
@@ -323,78 +306,78 @@
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Bstation</p>
-            <a href="/api/search/bstation?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/bstation?q=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Google Image</p>
-            <a href="/api/search/gimage?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/gimage?q=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Pinterest</p>
-            <a href="/api/search/pinterest?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/pinterest?q=">TRY</i></a>
           </div> 
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Playstore</p>
-            <a href="/api/search/playstore?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/playstore?q=">TRY</i></a>
           </div>           
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Fdroid</p>
-            <a href="/api/search/fdroid?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/fdroid?q=">TRY</i></a>
           </div>               
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Youtube Search</p>
-            <a href="/api/search/ytsearch?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/ytsearch?q=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Happymod</p>
-            <a href="/api/search/happymod?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/happymod?q=">TRY</i></a>
           </div>
 
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Sfilemobi</p>
-            <a href="/api/search/sfile?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/sfile?q=">TRY</i></a>
           </div> 
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Tiktok Search</p>
-            <a href="/api/search/tiktoksearch?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/tiktoksearch?q=">TRY</i></a>
           </div> 
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">NPM Search</p>
-            <a href="/api/search/npm?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/npm?q=">TRY</i></a>
           </div>        
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">XNXX Search</p>
-            <a href="/api/search/xnxx?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/xnxx?q=">TRY</i></a>
           </div>                            
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Lyrics</p>
-            <a href="/api/search/lyrics?q=">TRY</i></a>
+            <a class="try-btn" href="/api/search/lyrics?q=">TRY</i></a>
           </div> 
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Subdomain Finder</p>
-            <a href="/api/search/subdomain?url=">TRY</i></a>
+            <a class="try-btn" href="/api/search/subdomain?url=">TRY</i></a>
           </div>    
           
         </div>
@@ -409,31 +392,31 @@
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Tiktok Stalk</p>
-            <a href="/api/tools/tiktokstalk?user=">TRY</i></a>
+            <a class="try-btn" href="/api/tools/tiktokstalk?user=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Instagram Stalk</p>
-            <a href="/api/tools/igstalk?username=">TRY</i></a>
+            <a class="try-btn" href="/api/tools/igstalk?username=">TRY</i></a>
           </div>          
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Github Stalk</p>
-            <a href="/api/tools/githubstalk?user=">TRY</i></a>
+            <a class="try-btn" href="/api/tools/githubstalk?user=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">NPM Stalk</p>
-            <a href="/api/tools/npmstalk?pkgname=">TRY</i></a>
+            <a class="try-btn" href="/api/tools/npmstalk?pkgname=">TRY</i></a>
           </div>  
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Youtube Stalk</p>
-            <a href="/api/tools/youtubestalk?user=">TRY</i></a>
+            <a class="try-btn" href="/api/tools/youtubestalk?user=">TRY</i></a>
           </div>                              
           
         </div>
@@ -448,42 +431,40 @@
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Brat</p>
-            <a href="/api/imagecreator/bratgenerator?text=">TRY</i></a>
+            <a class="try-btn" href="/api/imagecreator/bratgenerator?text=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Pornhub</p>
-            <a href="/api/imagecreator/pornhub?text1=&text2=">TRY</i></a>
+            <a class="try-btn" href="/api/imagecreator/pornhub?text1=&text2=">TRY</i></a>
           </div>
           
            <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Remini</p>
-            <a href="/api/imagecreator/remini?url=">TRY</i></a>
+            <a class="try-btn" href="/api/imagecreator/remini?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Removebg</p>
-            <a href="/api/imagecreator/removebg?url=">TRY</i></a>
+            <a class="try-btn" href="/api/imagecreator/removebg?url=">TRY</i></a>
           </div>
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Upscale</p>
-            <a href="/api/imagecreator/upscale?url=">TRY</i></a>
+            <a class="try-btn" href="/api/imagecreator/upscale?url=">TRY</i></a>
           </div>                            
           
           <div class="endpoints">
             <p class="method">GET</p>
             <p class="name">Quotely</p>
-            <a href="/api/imagecreator/qc?text=&fotoUrl=&nama=">TRY</i></a>
+            <a class="try-btn" href="/api/imagecreator/qc?text=&fotoUrl=&nama=">TRY</i></a>
           </div>          
           
         </div>
 <!-- Stop Endpoints -->
-
-
 </body>
 </html>
