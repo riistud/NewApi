@@ -22,7 +22,7 @@ try {
         { role: 'system', content: prompt },
         { role: 'user', content: teks }
       ],
-      model: 'llama3-8b-8192',
+      model: 'llama-3.3-70b-versatile',
     })
     .catch(async (err) => {
       if (err instanceof Groq.APIError) {
