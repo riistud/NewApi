@@ -1,49 +1,39 @@
 const Groq = require('groq-sdk');
-require("../settings.js")
+const { creator } = require("../settings.js"); // Pastikan settings.js ada
 
-let api = [
-"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"
-]
+let apiKeys = [
+  "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"
+];
 
-let apikey = api[Math.floor(Math.random() * api.length)]
+let apiKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
 
-const client = new Groq({
-  apiKey: apikey,
-});
+const client = new Groq({ apiKey });
 
-async function groq(teks, prompt = `pakai bahasa Indonesia aja`) {
-try {
-  const chatCompletion = await client.chat.completions
-    .create({
-      messages: [
-        { role: 'system', content: prompt },
-        { role: 'user', content: teks }
-      ],
-      model: 'deepseek-r1-distill-qwen-32b',
-    })
-    .catch(async (err) => {
-      if (err instanceof Groq.APIError) {
-        console.log(err.status);
-        console.log(err.name);
-        console.log(err.headers);
-      } else {
-        throw err;
-      }
-    })
+function groq(teks, prompt = `Jawab langsung dalam bahasa Indonesia tanpa "<think>" atau pemikiran tambahan.`) {
+  return client.chat.completions.create({
+    messages: [
+      { role: 'system', content: prompt },
+      { role: 'user', content: teks }
+    ],
+    model: 'deepseek-r1-distill-qwen-32b',
+  })
+  .then(chatCompletion => {
+    let response = chatCompletion.choices[0]?.message?.content || "Tidak ada respons dari AI";
     
+    // Hapus bagian "<think>...</think>"
+    response = response.replace(/<think>.*?<\/think>/gs, '').trim();
+
     return {
-  status: true, 
-  creator: global.creator,
-  respon: chatCompletion.choices[0].message.content
-  }
-  
-  } catch (e) {
-  return {
-  status: false, 
-  creator: global.creator,
-  respon: "Error :" + e  
-  }
-  }
+      status: true, 
+      creator,
+      respon: response
+    };
+  })
+  .catch(e => ({
+    status: false, 
+    creator,
+    respon: "Error: " + e.message  
+  }));
 }
 
-module.exports = { groq }
+module.exports = { groq };
