@@ -110,8 +110,7 @@ app.get('/api/search/nik=:nik', (req, res) => {
         }
 
         res.json({
-            creator: RiiCODE,
-            result:, 
+            creator: RiiCODE, 
             valid: parsedNik.isValid(),
             provinsi: { id: parsedNik.provinceId(), nama: parsedNik.province() },
             kabupatenKota: { id: parsedNik.kabupatenKotaId(), nama: parsedNik.kabupatenKota() },
