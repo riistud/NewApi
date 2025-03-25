@@ -2,7 +2,6 @@ const Groq = require('groq-sdk');
 require("../settings.js")
 
 let api = [
-"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",
 " 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"
 ]
 
@@ -20,7 +19,7 @@ try {
         { role: 'system', content: prompt },
         { role: 'user', content: teks }
       ],
-      model: 'llama-3.3-70b-versatile',
+      model: 'deepseek-r1-distill-qwen-32b',
     })
     .catch(async (err) => {
       if (err instanceof Groq.APIError) {
