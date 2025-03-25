@@ -11,7 +11,7 @@ const client = new Groq({
   apiKey: apikey,
 });
 
-async function groq(teks, prompt = `sekarang kamu adalah ai yang mengetahui tentang semua bahasa pemrograman dan selalu gunakan bahasa Indonesia saat menjawab semua pertanyaan!`) {
+async function groq(teks, prompt = `pakai bahasa Indonesia aja`) {
 try {
   const chatCompletion = await client.chat.completions
     .create({
