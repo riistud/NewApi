@@ -40,6 +40,7 @@ const { igdl } = require('./function/instagram.js')
 const { chatbot } = require('./function/gpt.js')
 const { DeepSeek } = require('./function/deepseek.js')
 const { uploaderImg } = require('./function/uploadImage.js');
+const { NikParser } = require('nik-parser');
 const { tiktokdl } = require('./function/tiktok.js') 
 const {
   convertCRC16,
@@ -93,6 +94,37 @@ app.get("/api/search/subdomain", async (req, res) => {
         res.status(500).json({ error: "Gagal mendapatkan subdomain" });
     }
 })
+
+app.get('/api/search/nik=:nik', (req, res) => {
+    const { nik } = req.params;
+
+    if (!nik) {
+        return res.status(400).json({ error: 'NIK diperlukan' });
+    }
+
+    try {
+        const parsedNik = new NikParser(nik);
+
+        if (!parsedNik.isValid()) {
+            return res.status(400).json({ error: 'NIK tidak valid' });
+        }
+
+        res.json({
+            creator: RiiCODE,
+            result:, 
+            valid: parsedNik.isValid(),
+            provinsi: { id: parsedNik.provinceId(), nama: parsedNik.province() },
+            kabupatenKota: { id: parsedNik.kabupatenKotaId(), nama: parsedNik.kabupatenKota() },
+            kecamatan: { id: parsedNik.kecamatanId(), nama: parsedNik.kecamatan() },
+            kodePos: parsedNik.kodepos(),
+            jenisKelamin: parsedNik.kelamin(),
+            tanggalLahir: parsedNik.lahir(),
+            kodeUnik: parsedNik.uniqcode(),
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Terjadi kesalahan saat memproses NIK' });
+    }
+});
 
 app.get('/api/orkut/createpayment', async (req, res) => {
     const { apikey, amount } = req.query;
