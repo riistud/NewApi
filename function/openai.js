@@ -2,7 +2,7 @@ const Groq = require('groq-sdk');
 require("../settings.js")
 
 let api = [
-" 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"
+"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"
 ]
 
 let apikey = api[Math.floor(Math.random() * api.length)]
