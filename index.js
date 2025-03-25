@@ -95,35 +95,7 @@ app.get("/api/search/subdomain", async (req, res) => {
     }
 })
 
-app.get('/api/search/nik=:nik', (req, res) => {
-    const { nik } = req.params;
 
-    if (!nik) {
-        return res.status(400).json({ error: 'NIK diperlukan' });
-    }
-
-    try {
-        const parsedNik = new NikParser(nik);
-
-        if (!parsedNik.isValid()) {
-            return res.status(400).json({ error: 'NIK tidak valid' });
-        }
-
-        res.json({
-            creator: RiiCODE, 
-            valid: parsedNik.isValid(),
-            provinsi: { id: parsedNik.provinceId(), nama: parsedNik.province() },
-            kabupatenKota: { id: parsedNik.kabupatenKotaId(), nama: parsedNik.kabupatenKota() },
-            kecamatan: { id: parsedNik.kecamatanId(), nama: parsedNik.kecamatan() },
-            kodePos: parsedNik.kodepos(),
-            jenisKelamin: parsedNik.kelamin(),
-            tanggalLahir: parsedNik.lahir(),
-            kodeUnik: parsedNik.uniqcode(),
-        });
-    } catch (error) {
-        res.status(500).json({ error: 'Terjadi kesalahan saat memproses NIK' });
-    }
-});
 
 app.get('/api/orkut/createpayment', async (req, res) => {
     const { apikey, amount } = req.query;
@@ -147,7 +119,35 @@ app.get('/api/orkut/createpayment', async (req, res) => {
     }
 })
 
+app.get("/api/search/nik", (req, res) => {
+    const { nik } = req.query; // Menggunakan query parameter
 
+    if (!nik) {
+        return res.status(400).json({ error: 'NIK diperlukan' });
+    }
+
+    try {
+        const parsedNik = new NikParser(nik);
+
+        if (!parsedNik.isValid()) {
+            return res.status(400).json({ error: 'NIK tidak valid' });
+        }
+
+        res.json({
+            creator: "RiiCODE", // Menggunakan string jika bukan variabel
+            valid: parsedNik.isValid(),
+            provinsi: { id: parsedNik.provinceId(), nama: parsedNik.province() },
+            kabupatenKota: { id: parsedNik.kabupatenKotaId(), nama: parsedNik.kabupatenKota() },
+            kecamatan: { id: parsedNik.kecamatanId(), nama: parsedNik.kecamatan() },
+            kodePos: parsedNik.kodepos(),
+            jenisKelamin: parsedNik.kelamin(),
+            tanggalLahir: parsedNik.lahir(),
+            kodeUnik: parsedNik.uniqcode(),
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Terjadi kesalahan saat memproses NIK' });
+    }
+});
 
 app.get('/api/orkut/cekstatus', async (req, res) => {
     const { merchant, keyorkut } = req.query;
