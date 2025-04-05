@@ -40,7 +40,7 @@ const { igdl } = require('./function/instagram.js')
 const { chatbot } = require('./function/gpt.js')
 const { DeepSeek } = require('./function/deepseek.js')
 const { uploaderImg } = require('./function/uploadImage.js');
-const { NikParser } = require('nik-parser');
+const { nikParser } = require('nik-parser');
 const { tiktokdl } = require('./function/tiktok.js') 
 const {
   convertCRC16,
@@ -119,35 +119,36 @@ app.get('/api/orkut/createpayment', async (req, res) => {
     }
 })
 
-app.get("/api/search/nik", (req, res) => {
-    const { nik } = req.query; // Menggunakan query parameter
+app.get('/api/search/nik', (req, res) => {
+  const { ktp } = req.query
 
-    if (!nik) {
-        return res.status(400).json({ error: 'NIK diperlukan' });
+  if (!ktp) {
+    return res.status(400).json({ status: false, message: 'Parameter ktp diperlukan' })
+  }
+
+  const nik = nikParser(ktp)
+
+  if (!nik.isValid()) {
+    return res.status(400).json({ status: false, message: 'NIK tidak valid' })
+  }
+
+  res.json({
+    status: true,
+    result: {
+      nik: ktp,
+      province: nik.province(),
+      province_id: nik.provinceId(),
+      kabupaten: nik.kabupatenKota(),
+      kabupaten_id: nik.kabupatenKotaId(),
+      kecamatan: nik.kecamatan(),
+      kecamatan_id: nik.kecamatanId(),
+      kodepos: nik.kodepos(),
+      kelamin: nik.kelamin(),
+      lahir: nik.lahir(),
+      uniqcode: nik.uniqcode()
     }
-
-    try {
-        const parsedNik = new NikParser(nik);
-
-        if (!parsedNik.isValid()) {
-            return res.status(400).json({ error: 'NIK tidak valid' });
-        }
-
-        res.json({
-            creator: "RiiCODE", // Menggunakan string jika bukan variabel
-            valid: parsedNik.isValid(),
-            provinsi: { id: parsedNik.provinceId(), nama: parsedNik.province() },
-            kabupatenKota: { id: parsedNik.kabupatenKotaId(), nama: parsedNik.kabupatenKota() },
-            kecamatan: { id: parsedNik.kecamatanId(), nama: parsedNik.kecamatan() },
-            kodePos: parsedNik.kodepos(),
-            jenisKelamin: parsedNik.kelamin(),
-            tanggalLahir: parsedNik.lahir(),
-            kodeUnik: parsedNik.uniqcode(),
-        });
-    } catch (error) {
-        res.status(500).json({ error: 'Terjadi kesalahan saat memproses NIK' });
-    }
-});
+  })
+})
 
 app.get('/api/orkut/cekstatus', async (req, res) => {
     const { merchant, keyorkut } = req.query;
