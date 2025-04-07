@@ -256,27 +256,42 @@ app.get("/api/ai/blackbox", async (req, res) => {
 
 app.get("/api/ai/simsimi", async (req, res) => {
     const { msg } = req.query;
-    if (!msg) return res.json("Isi Parameternya!");
+
+    // Validasi input
+    if (!msg || typeof msg !== "string") {
+        return res.status(400).json({
+            status: false,
+            creator: global.creator,
+            error: "Parameter 'msg' harus berupa string yang tidak kosong"
+        });
+    }
 
     try {
-        var anu = await SimSimi(`${msg}`)
-        if (!anu) {
-        res.json ({
-        status: false,
-        creator: global.creator
-        })
+        const result = await SimSimi(msg); // Langsung pakai msg, sudah divalidasi
+
+        // Cek apakah result valid, misalnya string (sesuaikan dengan API)
+        if (typeof result !== "string" || result === null || result === undefined) {
+            return res.status(502).json({
+                status: false,
+                creator: global.creator,
+                error: "Respons dari SimSimi tidak valid"
+            });
         }
 
         res.json({
             status: true,
             creator: global.creator,
-            result: anu
+            result
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "An error occurred while fetching data." });
+        console.error("Error in SimSimi API:", error.message);
+        res.status(500).json({
+            status: false,
+            creator: global.creator,
+            error: "Gagal memproses permintaan ke SimSimi"
+        });
     }
-})
+});
 
 app.get("/api/ai/deepseek", async (req, res) => {
     const { msg } = req.query;
