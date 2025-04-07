@@ -701,7 +701,7 @@ app.get("/api/tools/safelinku", async (req, res) => {
     if (!url) return res.json({ status: false, message: "Isi parameternya!" });
     if (!url.startsWith("https://")) return res.json({ status: false, message: "Link tautan tidak valid!" });
 
-    const result = await safelinku(url); // alias & passcode default kosong
+    const result = await safeLinku(url); // alias & passcode default kosong
 
     if (!result || !result.data) return res.json({ status: false, message: "Gagal memperpendek link." });
 
@@ -716,6 +716,7 @@ app.get("/api/tools/safelinku", async (req, res) => {
     res.status(500).json({ status: false, message: error.message });
   }
 });
+
 app.get("/api/tools/igstalk", async (req, res) => {
 const { username } = req.query
 if (!username) return res.json("Isi Parameternya!")
