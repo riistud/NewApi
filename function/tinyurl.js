@@ -43,4 +43,4 @@ async function safelinku(url, alias = "", passcode = "") {
   }
 }
 
-module.exports = { shortUrl, shortUrl2, safeLinku };
+module.exports = { shortUrl, shortUrl2, safelinku };
