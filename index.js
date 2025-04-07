@@ -19,7 +19,6 @@ const { fdroid } = require('./function/fdroid.js')
 const { BSearch } = require('./function/bstation.js') 
 const { doodS } = require('./function/doodstream.js')
 const { SimSimi } = require('./function/simsimi.js')
-const { blackbox } = require('./function/blackbox.js')
 const { xnxxdl, xnxxsearch } = require('./function/xnxxdl.js')
 const { ttSearch } = require('./function/tiktoksearch.js') 
 const { souncloudDl } = require('./function/soundcloud.js') 
@@ -232,27 +231,32 @@ app.get("/api/ai/openai", async (req, res) => {
 
 app.get("/api/ai/blackbox", async (req, res) => {
     const { msg } = req.query;
-    if (!msg) return res.json("Isi Parameternya!");
+
+    if (!msg) {
+        return res.status(400).json({ status: false, message: "Isi Parameternya!" });
+    }
 
     try {
-        var anu = await blackbox(`${msg}`)
-        if (!anu.status) {
-        res.json ({
-        status: false,
-        creator: global.creator
-        })
+        const response = await axios.get(`https://fastrestapis.fasturl.cloud/aillm/blackbox?ask=${encodeURIComponent(msg)}&model=blackbox`);
+        const anu = response.data;
+
+        if (!anu || !anu.result) { // Asumsi hasil ada di field 'result', sesuaikan jika berbeda
+            return res.status(502).json({
+                status: false,
+                creator: global.creator
+            });
         }
 
         res.json({
             status: true,
             creator: global.creator,
-            result: anu
+            result: anu.result // Mengambil 'result' dari respons API
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "An error occurred while fetching data." });
+        console.error("Error fetching data from Blackbox API:", error.message);
+        res.status(500).json({ status: false, error: "An error occurred while fetching data." });
     }
-})
+});
 
 app.get("/api/ai/simsimi", async (req, res) => {
     const { msg } = req.query;
