@@ -319,28 +319,34 @@ app.get("/api/ai/deepseek", async (req, res) => {
 
 app.get("/api/ai/gpt4", async (req, res) => {
     const { text } = req.query;
-    if (!text) return res.json("Isi Parameternya!");
+
+    if (!text) {
+        return res.status(400).json({ status: false, message: "Isi Parameternya!" });
+    }
 
     try {
-        var anu = await chatbot.send(`${text}`)
-        if (!anu?.choices[0]?.message?.content) {
-        res.json ({
-        status: false,
-        creator: global.creator,
-        result: null
-        })
+        const response = await axios.get(`https://fastrestapis.fasturl.cloud/aillm/gpt-4?ask=${encodeURIComponent(text)}`);
+        const data = response.data;
+
+        // Asumsi respons dari API memiliki struktur yang langsung mengembalikan hasil di 'result' atau serupa
+        if (!data || !data.result) {
+            return res.status(502).json({
+                status: false,
+                creator: global.creator,
+                result: null
+            });
         }
 
         res.json({
             status: true,
             creator: global.creator,
-            result: anu.choices[0].message.content
+            result: data.result // Hasil dari API disimpan di 'result'
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "An error occurred while fetching data." });
+        console.error("Error fetching data from API:", error.message);
+        res.status(500).json({ status: false, error: "An error occurred while fetching data." });
     }
-})
+});
 
 app.get("/api/ai/gpt-3-5-turbo", async (req, res) => {
     const { text } = req.query;
