@@ -34,7 +34,7 @@ const { googleImage } = require('./function/gimage.js')
 const { githubstalk } = require('./function/githubstalk.js') 
 const { youtubeStalk } = require('./function/ytstalk.js') 
 const { fbdl } = require('./function/facebook.js') 
-const { shortUrl, shortUrl2 } = require('./function/tinyurl.js') 
+const { shortUrl, shortUrl2, safeLinku } = require('./function/tinyurl.js') 
 const { remini } = require('./function/remini.js')
 const { igdl } = require('./function/instagram.js') 
 const { chatbot } = require('./function/gpt.js')
@@ -694,7 +694,28 @@ app.get("/api/tools/isgd", async (req, res) => {
         res.send(error)
     }
 })
+app.get("/api/tools/safelinku", async (req, res) => {
+  try {
+    const { url } = req.query;
 
+    if (!url) return res.json({ status: false, message: "Isi parameternya!" });
+    if (!url.startsWith("https://")) return res.json({ status: false, message: "Link tautan tidak valid!" });
+
+    const result = await safelinku(url); // alias & passcode default kosong
+
+    if (!result || !result.data) return res.json({ status: false, message: "Gagal memperpendek link." });
+
+    res.json({
+      status: true,
+      creator: global.creator,
+      link: result.data.shortenedUrl || result.data.short_url || result.data.url,
+      full: result.data
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: false, message: error.message });
+  }
+});
 app.get("/api/tools/igstalk", async (req, res) => {
 const { username } = req.query
 if (!username) return res.json("Isi Parameternya!")
