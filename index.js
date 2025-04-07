@@ -34,7 +34,7 @@ const { googleImage } = require('./function/gimage.js')
 const { githubstalk } = require('./function/githubstalk.js') 
 const { youtubeStalk } = require('./function/ytstalk.js') 
 const { fbdl } = require('./function/facebook.js') 
-const { shortUrl, shortUrl2, safeLinku } = require('./function/tinyurl.js') 
+const { shortUrl, shortUrl2, safelinku } = require('./function/tinyurl.js') 
 const { remini } = require('./function/remini.js')
 const { igdl } = require('./function/instagram.js') 
 const { chatbot } = require('./function/gpt.js')
@@ -701,7 +701,7 @@ app.get("/api/tools/safelinku", async (req, res) => {
     if (!url) return res.json({ status: false, message: "Isi parameternya!" });
     if (!url.startsWith("https://")) return res.json({ status: false, message: "Link tautan tidak valid!" });
 
-    const result = await safeLinku(url); // alias & passcode default kosong
+    const result = await safelinku(url); // alias & passcode default kosong
 
     if (!result || !result.data) return res.json({ status: false, message: "Gagal memperpendek link." });
 
