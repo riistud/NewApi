@@ -193,9 +193,16 @@ app.get('/api/orkut/cekstatus', async (req, res) => {
 
 
 app.get('/', (req, res) => {
-res.sendFile(path.join(__dirname, 'index.html','styles.css','script.js','favicon.ico');
-})
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'styles.css'));
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'script.js'));
+});
 
 app.get("/api/ai/openai-prompt", async (req, res) => {
     const { prompt, msg } = req.query;
