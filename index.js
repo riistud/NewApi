@@ -68,7 +68,25 @@ async function getSubdomains(domain) {
         return [];
     }
 }
+//
+app.get('/api/cekidch', (req, res) => {
+  const { id } = req.query;
+  if (!id || !id.includes('https://whatsapp.com/channel/')) {
+    return res.status(400).json({ error: 'Link tidak valid.' });
+  }
 
+  const channelId = id.split('https://whatsapp.com/channel/')[1];
+
+  const dummyData = {
+    id: channelId,
+    name: 'Contoh Channel',
+    subscribers: 1234,
+    state: 'ACTIVE',
+    verification: 'VERIFIED'
+  };
+
+  res.json(dummyData);
+});
 // API Endpoint
 app.get("/api/search/subdomain", async (req, res) => {
     const { url } = req.query;
