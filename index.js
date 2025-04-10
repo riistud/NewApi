@@ -193,7 +193,7 @@ app.get('/api/orkut/cekstatus', async (req, res) => {
 
 
 app.get('/', (req, res) => {
-res.sendFile(path.join(__dirname, 'index.html','styles.css','script.js');
+res.sendFile(path.join(__dirname, 'index.html','styles.css','script.js','favicon.ico');
 })
 
 
