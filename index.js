@@ -196,14 +196,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'styles.css'));
-});
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'script.js'));
-});
-
 app.get("/api/ai/openai-prompt", async (req, res) => {
     const { prompt, msg } = req.query;
     if (!prompt || !msg) return res.json("Isi Parameternya!");
