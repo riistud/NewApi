@@ -37,7 +37,6 @@ const { shortUrl, shortUrl2, safelinku } = require('./function/tinyurl.js')
 const { remini } = require('./function/remini.js')
 const { igdl } = require('./function/instagram.js') 
 const { chatbot } = require('./function/gpt.js')
-const { DeepSeek } = require('./function/deepseek.js')
 const { uploaderImg } = require('./function/uploadImage.js');
 const { nikParser } = require('nik-parser');
 const { tiktokdl } = require('./function/tiktok.js') 
@@ -57,6 +56,7 @@ app.set("json spaces", 2);
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname)));
 app.use(express.static(path.join(__dirname, "function")));
 app.use(bodyParser.raw({ limit: '50mb', type: '*/*' }))
 async function getSubdomains(domain) {
