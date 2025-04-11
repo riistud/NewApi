@@ -196,6 +196,14 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
 app.get("/api/ai/openai-prompt", async (req, res) => {
     const { prompt, msg } = req.query;
     if (!prompt || !msg) return res.json("Isi Parameternya!");
