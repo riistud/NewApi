@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*?apikey=
+Disallow: /*?keyorkut=
+Disallow: /*?merchant=
+Disallow: /*?ktp=
+Disallow: /*?url=
+Disallow: /*?msg=
+Disallow: /*?text=
+Disallow: /*?q=
+Disallow: /*?user=
+Disallow: /*?username=
+Disallow: /*?pkgname=
+
+# Sitemap (opsional, tambahkan jika kamu punya sitemap)
+# Sitemap: https://api.riicode.my.id/sitemap.xml
