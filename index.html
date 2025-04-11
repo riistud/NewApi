@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <!-- Favicon -->
+  <link rel="preload" href="https://files.catbox.moe/zkzvcw.png" as="image">
   <link rel="icon" href="https://files.catbox.moe/zkzvcw.png">
   <!-- SEO Optimization -->
   <meta name="description" content="RiiAPI: Dashboard REST API by RiiCODE untuk downloader, AI, tools, social media stalk, dan lainnya. Coba sekarang!">
@@ -15,6 +16,7 @@
   <meta property="og:description" content="Dashboard REST API dengan fitur downloader, AI, tools, dan lainnya. Cek sekarang!">
   <meta property="og:url" content="https://api.riicode.my.id">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://files.catbox.moe/zkzvcw.png">
   <title>RiiAPI - Dashboard REST API</title>
   <style>
     body { 
@@ -24,7 +26,7 @@
       flex-direction: column;
       min-height: 100vh; 
       background: #1a1a2e;
-      color: #ffffff; /* Ubah warna teks untuk kontras lebih baik */
+      color: #ffffff;
     }
     #toggleSidebar {
       position: fixed;
@@ -47,7 +49,7 @@
     .sidebar {
       width: 250px; 
       background: #16213e;
-      color: #ffffff; /* Ubah warna teks */
+      color: #ffffff;
       padding: 20px;
       transition: transform 0.3s ease;
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
@@ -74,15 +76,15 @@
       background: #0f3460;
     }
     .sidebar li:focus {
-      outline: 2px solid #e94560;
-      outline-offset: 2px;
+      outline: 3px solid #e94560;
+      outline-offset: 3px;
     }
     .main { 
       flex: 1;
       padding: 30px; 
       background: #1a1a2e; 
       overflow-y: auto;
-      color: #ffffff; /* Ubah warna teks */
+      color: #ffffff;
     }
     .main h1 { 
       margin-bottom: 15px; 
@@ -125,7 +127,7 @@
       border-bottom: 1px dashed #0f3460;
     }
     .method {
-      background: #00cc99;
+      background: #00b386; /* Disesuaikan untuk kontras lebih baik */
       color: #fff; 
       padding: 4px 10px;
       font-size: 12px; 
@@ -137,10 +139,10 @@
     .name { 
       flex: 1; 
       margin: 0 15px; 
-      color: #ffffff; /* Ubah warna teks */
+      color: #ffffff;
     }
     .try-btn {
-      background: #e94560;
+      background: #c72c44; /* Disesuaikan untuk kontras lebih baik */
       color: #fff; 
       padding: 6px 12px;
       border-radius: 6px; 
@@ -149,15 +151,15 @@
       font-weight: bold;
     }
     .try-btn:hover { 
-      background: #d32f47;
+      background: #b0273d;
     }
     .try-btn:focus {
-      outline: 2px solid #e94560;
-      outline-offset: 2px;
+      outline: 3px solid #e94560;
+      outline-offset: 3px;
     }
     footer {
       background: #16213e;
-      color: #ffffff; /* Ubah warna teks */
+      color: #ffffff;
       padding: 20px;
       text-align: center;
       font-size: 14px;
@@ -210,8 +212,8 @@
     <div id="kontenApi"></div>
   </div>
   <footer>
-    <p lang="id">© 2025 RiiAPI. Dibuat dengan ❤ oleh <a href="https://instagram.com/fakhriigt">RiiCODE</a>.</p>
-    <p lang="id"><a href="https://whatsapp.com/channel/0029Vb5i7GoKwqSRHzGKbo3K">Api Information</a> | <a href="https://saweria.co/riicode">Support Admin</a></p>
+    <p lang="id">© 2025 RiiAPI. Dibuat dengan ❤ oleh <a href="https://instagram.com/fakhriigt" rel="noopener">RiiCODE</a>.</p>
+    <p lang="id"><a href="https://whatsapp.com/channel/0029Vb5i7GoKwqSRHzGKbo3K" title="Informasi API di WhatsApp" rel="noopener">Api Information</a> | <a href="https://saweria.co/riicode" title="Dukung Admin melalui Saweria" rel="noopener">Support Admin</a></p>
   </footer>
 
   <script defer>
@@ -293,7 +295,7 @@
     for (const kategori in dataApi) {
       const li = document.createElement("li");
       li.textContent = kategori;
-      li.setAttribute("tabindex", "0"); // Membuat elemen dapat difokuskan dengan keyboard
+      li.setAttribute("tabindex", "0");
       li.addEventListener("click", () => {
         document.getElementById(kategori).scrollIntoView({ behavior: "smooth" });
       });
@@ -310,6 +312,9 @@
       const title = document.createElement("div");
       title.className = "title";
       title.textContent = kategori;
+      title.setAttribute("lang", "id");
+      title.setAttribute("role", "heading");
+      title.setAttribute("aria-level", "3");
       card.appendChild(title);
 
       dataApi[kategori].forEach(api => {
@@ -319,7 +324,7 @@
         ep.innerHTML = `
           <span class="method">${api.method}</span>
           <span class="name">${api.name}</span>
-          <a class="try-btn" href="${api.link}" target="_blank" aria-label="Try ${api.name} API">TRY</a>
+          <a class="try-btn" href="${api.link}" target="_blank" aria-label="Try ${api.name} API" rel="noopener">TRY</a>
         `;
         card.appendChild(ep);
       });
