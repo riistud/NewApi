@@ -6,7 +6,7 @@
   <!-- Favicon -->
   <link rel="icon" href="https://files.catbox.moe/zkzvcw.png">
   <!-- SEO Optimization -->
-  <meta name="description" content="RiiAPI - Dashboard REST API untuk berbagai layanan seperti downloader, AI, tools, dan lainnya. Dibuat oleh RiiCODE.">
+  <meta name="description" content="RiiAPI: Dashboard REST API by RiiCODE untuk downloader, AI, tools, social media stalk, dan lainnya. Coba sekarang!">
   <meta name="keywords" content="RiiAPI, RiiCODEAPI, EST API, downloader, AI tools, social media stalk, image creator, RiiCODE">
   <meta name="author" content="RiiCODE">
   <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
       flex-direction: column;
       min-height: 100vh; 
       background: #1a1a2e;
-      color: #e0e0e0;
+      color: #ffffff; /* Ubah warna teks untuk kontras lebih baik */
     }
     #toggleSidebar {
       position: fixed;
@@ -47,7 +47,7 @@
     .sidebar {
       width: 250px; 
       background: #16213e;
-      color: #e0e0e0; 
+      color: #ffffff; /* Ubah warna teks */
       padding: 20px;
       transition: transform 0.3s ease;
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
@@ -73,11 +73,16 @@
     .sidebar li:hover { 
       background: #0f3460;
     }
+    .sidebar li:focus {
+      outline: 2px solid #e94560;
+      outline-offset: 2px;
+    }
     .main { 
       flex: 1;
       padding: 30px; 
       background: #1a1a2e; 
       overflow-y: auto;
+      color: #ffffff; /* Ubah warna teks */
     }
     .main h1 { 
       margin-bottom: 15px; 
@@ -132,7 +137,7 @@
     .name { 
       flex: 1; 
       margin: 0 15px; 
-      color: #e0e0e0;
+      color: #ffffff; /* Ubah warna teks */
     }
     .try-btn {
       background: #e94560;
@@ -146,9 +151,13 @@
     .try-btn:hover { 
       background: #d32f47;
     }
+    .try-btn:focus {
+      outline: 2px solid #e94560;
+      outline-offset: 2px;
+    }
     footer {
       background: #16213e;
-      color: #e0e0e0;
+      color: #ffffff; /* Ubah warna teks */
       padding: 20px;
       text-align: center;
       font-size: 14px;
@@ -189,23 +198,23 @@
   </style>
 </head>
 <body>
-  <button id="toggleSidebar">☰</button>
-  <div class="sidebar">
-    <h2>Kategori API</h2>
+  <button id="toggleSidebar" aria-label="Toggle Sidebar">☰</button>
+  <div class="sidebar" role="navigation">
+    <h2 lang="id">Kategori API</h2>
     <ul id="kategoriList"></ul>
   </div>
   <div class="main">
-    <h1>Welcome To RiiAPI</h1>
-    <p>Create By RiiCODE</p>
-    <p class="total-api">Total Api: <span id="totalApi"></span></p>
+    <h1 lang="id">Welcome To RiiAPI</h1>
+    <p lang="id">Create By RiiCODE</p>
+    <p class="total-api" lang="id">Total Api: <span id="totalApi"></span></p>
     <div id="kontenApi"></div>
   </div>
   <footer>
-    <p>© 2025 RiiAPI. Dibuat dengan ❤ oleh <a href="https://instagram.com/fakhriigt">RiiCODE</a>.</p>
-    <p><a href="https://whatsapp.com/channel/0029Vb5i7GoKwqSRHzGKbo3K">Api Information</a> | <a href="https://saweria.co/riicode">Support Admin</a></p>
+    <p lang="id">© 2025 RiiAPI. Dibuat dengan ❤ oleh <a href="https://instagram.com/fakhriigt">RiiCODE</a>.</p>
+    <p lang="id"><a href="https://whatsapp.com/channel/0029Vb5i7GoKwqSRHzGKbo3K">Api Information</a> | <a href="https://saweria.co/riicode">Support Admin</a></p>
   </footer>
 
-  <script>
+  <script defer>
     const dataApi = {
       "Orderkuota Gateway": [
         { name: "Create Payment", method: "GET", link: "/api/orkut/createpayment?apikey=&amount=&codeqr=" },
@@ -284,8 +293,14 @@
     for (const kategori in dataApi) {
       const li = document.createElement("li");
       li.textContent = kategori;
+      li.setAttribute("tabindex", "0"); // Membuat elemen dapat difokuskan dengan keyboard
       li.addEventListener("click", () => {
         document.getElementById(kategori).scrollIntoView({ behavior: "smooth" });
+      });
+      li.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          document.getElementById(kategori).scrollIntoView({ behavior: "smooth" });
+        }
       });
       kategoriList.appendChild(li);
 
@@ -304,7 +319,7 @@
         ep.innerHTML = `
           <span class="method">${api.method}</span>
           <span class="name">${api.name}</span>
-          <a class="try-btn" href="${api.link}" target="_blank">TRY</a>
+          <a class="try-btn" href="${api.link}" target="_blank" aria-label="Try ${api.name} API">TRY</a>
         `;
         card.appendChild(ep);
       });
