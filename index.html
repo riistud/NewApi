@@ -8,7 +8,7 @@
   <link rel="icon" href="https://files.catbox.moe/zkzvcw.png">
   <!-- SEO Optimization -->
   <meta name="description" content="RiiAPI: Dashboard REST API by RiiCODE untuk downloader, AI, tools, social media stalk, dan lainnya. Coba sekarang!">
-  <meta name="keywords" content="RiiAPI, RiiCODEAPI, EST API, downloader, AI tools, social media stalk, image creator, RiiCODE">
+  <meta name="keywords" content="RiiAPI, RiiCODEAPI, REST API, downloader, AI tools, social media stalk, image creator, RiiCODE, Free Rest Api">
   <meta name="author" content="RiiCODE">
   <meta name="robots" content="index, follow">
   <!-- Open Graph -->
@@ -91,8 +91,13 @@
       color: #fff;
       font-size: 28px;
     }
+    .main h2 { 
+      margin-bottom: 20px; 
+      color: #fff;
+      font-size: 24px;
+    }
     .main .total-api {
-      background: #e94560;
+      background: #c72c44; /* Diperbarui untuk kontras lebih baik */
       color: #fff; 
       padding: 12px 20px;
       border-radius: 8px; 
@@ -127,7 +132,7 @@
       border-bottom: 1px dashed #0f3460;
     }
     .method {
-      background: #00b386; /* Disesuaikan untuk kontras lebih baik */
+      background: #008f6a; /* Diperbarui untuk kontras lebih baik */
       color: #fff; 
       padding: 4px 10px;
       font-size: 12px; 
@@ -142,7 +147,7 @@
       color: #ffffff;
     }
     .try-btn {
-      background: #c72c44; /* Disesuaikan untuk kontras lebih baik */
+      background: #a32438; /* Diperbarui untuk kontras lebih baik */
       color: #fff; 
       padding: 6px 12px;
       border-radius: 6px; 
@@ -151,7 +156,7 @@
       font-weight: bold;
     }
     .try-btn:hover { 
-      background: #b0273d;
+      background: #8e1f31;
     }
     .try-btn:focus {
       outline: 3px solid #e94560;
@@ -209,6 +214,7 @@
     <h1 lang="id">Welcome To RiiAPI</h1>
     <p lang="id">Create By RiiCODE</p>
     <p class="total-api" lang="id">Total Api: <span id="totalApi"></span></p>
+    <h2 lang="id">Daftar API</h2>
     <div id="kontenApi"></div>
   </div>
   <footer>
@@ -232,7 +238,7 @@
         { name: "Doodstream", method: "GET", link: "/api/download/doodstream?url=" },
         { name: "Google Drive", method: "GET", link: "/api/download/gdrive?url=" },
         { name: "Pinterest Video", method: "GET", link: "/api/search/pinterest?q=" },
-        { name: "Soundcloud", method: "GET", link: "/api/download/pindlvid?url=" },
+        { name: "Soundcloud", method: "GET", link: "api/download/pindlvid?url=" },
         { name: "Snackvideo", method: "GET", link: "/api/download/snackvideo?url=" },
         { name: "XNXX", method: "GET", link: "/api/download/xnxxdl?url=" }
       ],
@@ -309,12 +315,10 @@
       const card = document.createElement("div");
       card.className = "card";
       card.id = kategori;
-      const title = document.createElement("div");
+      const title = document.createElement("h3"); // Ubah menjadi h3
       title.className = "title";
       title.textContent = kategori;
       title.setAttribute("lang", "id");
-      title.setAttribute("role", "heading");
-      title.setAttribute("aria-level", "3");
       card.appendChild(title);
 
       dataApi[kategori].forEach(api => {
