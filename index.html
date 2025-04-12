@@ -97,10 +97,19 @@
       font-size: 24px;
     }
     .main .total-api {
-      background: #c72c44; /* Diperbarui untuk kontras lebih baik */
+      background: #c72c44;
       color: #fff; 
       padding: 12px 20px;
       border-radius: 8px; 
+      display: inline-block;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+    .main .total-visitor {
+      background: #1e88e5;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
       display: inline-block;
       margin-bottom: 25px;
       font-weight: bold;
@@ -132,14 +141,14 @@
       border-bottom: 1px dashed #0f3460;
     }
     .method {
-    background: #cc7b1f /* Warna latar belakang */
-    color: #fff; /* Warna teks */
-    padding: 4px 10px;
-    font-size: 12px; 
-    border-radius: 4px;
-    min-width: 40px;
-    text-align: center;
-    font-weight: bold;
+      background: #cc7b1f;
+      color: #fff;
+      padding: 4px 10px;
+      font-size: 12px; 
+      border-radius: 4px;
+      min-width: 40px;
+      text-align: center;
+      font-weight: bold;
     }
     .name { 
       flex: 1; 
@@ -147,7 +156,7 @@
       color: #ffffff;
     }
     .try-btn {
-      background: #a32438; /* Diperbarui untuk kontras lebih baik */
+      background: #a32438;
       color: #fff; 
       padding: 6px 12px;
       border-radius: 6px; 
@@ -163,24 +172,22 @@
       outline-offset: 3px;
     }
     footer {
-    background: #16213e; /* Latar belakang footer */
-    color: #ffffff;
-    padding: 20px;
-    text-align: center;
-    font-size: 14px;
-    border-top: 1px solid #0f3460;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
-}
-
-footer a {
-    color: #e94560; /* Warna teks link */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: #fff;
-}
+      background: #16213e;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      border-top: 1px solid #0f3460;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+    }
+    footer a {
+      color: #e94560;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #fff;
+    }
     @media (max-width: 768px) {
       #toggleSidebar {
         display: block;
@@ -215,6 +222,7 @@ footer a:hover {
     <h1 lang="id">Welcome To RiiAPI</h1>
     <p lang="id">Create By RiiCODE</p>
     <p class="total-api" lang="id">Total Api: <span id="totalApi"></span></p>
+    <p class="total-visitor" lang="id">Total Visitor: <span id="totalVisitor">0</span></p>
     <h2 lang="id">Daftar API</h2>
     <div id="kontenApi"></div>
   </div>
@@ -222,7 +230,8 @@ footer a:hover {
     <p lang="id">© 2025 RiiAPI. Dibuat dengan ❤ oleh <a href="https://instagram.com/fakhriigt" rel="noopener">RiiCODE</a>.</p>
     <p lang="id"><a href="https://whatsapp.com/channel/0029Vb5i7GoKwqSRHzGKbo3K" title="Informasi API di WhatsApp" rel="noopener">Api Information</a> | <a href="https://saweria.co/riicode" title="Dukung Admin melalui Saweria" rel="noopener">Support Admin</a></p>
   </footer>
- <script defer>
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "de460f72613e45e0b035bbb2191b309e"}'></script>
+  <script defer>
     const dataApi = {
       "Orderkuota Gateway": [
         { name: "Create Payment", method: "GET", link: "/api/orkut/createpayment?apikey=&amount=&codeqr=" },
@@ -315,7 +324,7 @@ footer a:hover {
       const card = document.createElement("div");
       card.className = "card";
       card.id = kategori;
-      const title = document.createElement("h3"); // Ubah menjadi h3
+      const title = document.createElement("h3");
       title.className = "title";
       title.textContent = kategori;
       title.setAttribute("lang", "id");
@@ -349,6 +358,20 @@ footer a:hover {
         sidebar.classList.remove("active");
       }
     });
+
+    // Fungsi untuk menghitung dan menampilkan total visitor
+    function updateVisitorCount() {
+      let visitorCount = localStorage.getItem("visitorCount");
+      if (!visitorCount) {
+        visitorCount = 0;
+      }
+      visitorCount = parseInt(visitorCount) + 1;
+      localStorage.setItem("visitorCount", visitorCount);
+      document.getElementById("totalVisitor").textContent = visitorCount;
+    }
+
+    // Panggil fungsi saat halaman dimuat
+    document.addEventListener("DOMContentLoaded", updateVisitorCount);
   </script>
 </body>
 </html>
