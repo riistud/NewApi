@@ -222,7 +222,6 @@
     <h1 lang="id">Welcome To RiiAPI</h1>
     <p lang="id">Create By RiiCODE</p>
     <p class="total-api" lang="id">Total Api: <span id="totalApi"></span></p>
-    <p class="total-visitor" lang="id">Total Visitor: <span id="totalVisitor">0</span></p>
     <h2 lang="id">Daftar API</h2>
     <div id="kontenApi"></div>
   </div>
@@ -358,20 +357,6 @@
         sidebar.classList.remove("active");
       }
     });
-
-    // Fungsi untuk menghitung dan menampilkan total visitor
-    function updateVisitorCount() {
-      let visitorCount = localStorage.getItem("visitorCount");
-      if (!visitorCount) {
-        visitorCount = 0;
-      }
-      visitorCount = parseInt(visitorCount) + 1;
-      localStorage.setItem("visitorCount", visitorCount);
-      document.getElementById("totalVisitor").textContent = visitorCount;
-    }
-
-    // Panggil fungsi saat halaman dimuat
-    document.addEventListener("DOMContentLoaded", updateVisitorCount);
   </script>
 </body>
 </html>
