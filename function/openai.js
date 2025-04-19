@@ -15,7 +15,7 @@ function groq(teks, prompt = `Jawab langsung dalam bahasa Indonesia tanpa "<thin
       { role: 'system', content: prompt },
       { role: 'user', content: teks }
     ],
-    model: 'deepseek-r1-distill-qwen-32b',
+    model: 'llama-3.3-70b-versatile',
   })
   .then(chatCompletion => {
     let response = chatCompletion.choices[0]?.message?.content || "Tidak ada respons dari AI";
