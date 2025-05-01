@@ -171,6 +171,96 @@
       outline: 3px solid #e94560;
       outline-offset: 3px;
     }
+    /* Dokumentasi Styling */
+    .doc-section {
+      margin-top: 40px;
+    }
+    .doc-card {
+      background: #16213e;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .doc-card h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #fff;
+      border-bottom: 2px solid #0f3460;
+      padding-bottom: 8px;
+    }
+    .doc-card h4 {
+      font-size: 18px;
+      margin: 15px 0 10px;
+      color: #fff;
+    }
+    .doc-card pre {
+      background: #0f3460;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #fff;
+      font-size: 14px;
+    }
+    .doc-card table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+    .doc-card th, .doc-card td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #0f3460;
+      color: #fff;
+    }
+    .doc-card th {
+      background: #0f3460;
+      font-weight: bold;
+    }
+    /* Styling untuk form interaktif */
+    .api-form {
+      margin: 15px 0;
+      padding: 15px;
+      background: #0f3460;
+      border-radius: 6px;
+    }
+    .api-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .api-form input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 4px;
+      background: #1a1a2e;
+      color: #fff;
+    }
+    .api-form input:focus {
+      outline: 2px solid #e94560;
+    }
+    .api-form .execute-btn {
+      background: #1e88e5;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .api-form .execute-btn:hover {
+      background: #1565c0;
+    }
+    .response-section {
+      margin-top: 15px;
+    }
+    .response-section h5 {
+      margin-bottom: 10px;
+      color: #fff;
+    }
     footer {
       background: #16213e;
       color: #ffffff;
@@ -224,6 +314,10 @@
     <p class="total-api" lang="id">Total Api: <span id="totalApi"></span></p>
     <h2 lang="id">Daftar API</h2>
     <div id="kontenApi"></div>
+    <div class="doc-section" id="dokumentasi">
+      <h2 lang="id">Dokumentasi API</h2>
+      <div id="kontenDokumentasi"></div>
+    </div>
   </div>
   <footer>
     <p lang="id">© 2025 RiiAPI. Dibuat dengan ❤ oleh <a href="https://instagram.com/fakhriigt" rel="noopener">RiiCODE</a>.</p>
@@ -233,11 +327,64 @@
   <script defer>
     const dataApi = {
       "Orderkuota Gateway": [
-        { name: "Create Payment", method: "GET", link: "/api/orkut/createpayment?apikey=&amount=&codeqr=" },
-        { name: "Cek Status", method: "GET", link: "/api/orkut/cekstatus?apikey=&merchant=&keyorkut=" }
+        { 
+          name: "Create Payment", 
+          method: "GET", 
+          link: "/api/orkut/createpayment?apikey=&amount=&codeqr=",
+          doc: {
+            description: "Membuat pembayaran baru melalui Orderkuota Gateway.",
+            parameters: [
+              { name: "apikey", type: "string", required: true, description: "API key untuk autentikasi" },
+              { name: "amount", type: "number", required: true, description: "Jumlah pembayaran" },
+              { name: "codeqr", type: "string", required: true, description: "Kode QR untuk pembayaran" }
+            ],
+            exampleRequest: "GET /api/orkut/createpayment?apikey=your_api_key&amount=10000&codeqr=QR123",
+            exampleResponse: `{
+  "status": "success",
+  "payment_id": "PAY123",
+  "amount": 10000,
+  "qr_code": "QR123"
+}`
+          }
+        },
+        { 
+          name: "Cek Status", 
+          method: "GET", 
+          link: "/api/orkut/cekstatus?apikey=&merchant=&keyorkut=",
+          doc: {
+            description: "Memeriksa status pembayaran.",
+            parameters: [
+              { name: "apikey", type: "string", required: true, description: "API key untuk autentikasi" },
+              { name: "merchant", type: "string", required: true, description: "ID merchant" },
+              { name: "keyorkut", type: "string", required: true, description: "Kunci Orderkuota" }
+            ],
+            exampleRequest: "GET /api/orkut/cekstatus?apikey=your_api_key&merchant=MER123&keyorkut=KEY456",
+            exampleResponse: `{
+  "status": "success",
+  "payment_status": "completed",
+  "merchant": "MER123"
+}`
+          }
+        }
       ],
       "Downloader": [
-        { name: "Tiktok", method: "GET", link: "/api/download/tiktokdl?url=" },
+        { 
+          name: "Tiktok", 
+          method: "GET", 
+          link: "/api/download/tiktokdl?url=",
+          doc: {
+            description: "Mengunduh video dari TikTok menggunakan URL.",
+            parameters: [
+              { name: "url", type: "string", required: true, description: "URL video TikTok" }
+            ],
+            exampleRequest: "GET /api/download/tiktokdl?url=https://www.tiktok.com/@user/video/123456789",
+            exampleResponse: `{
+  "status": "success",
+  "video_url": "https://cdn.example.com/tiktok_video.mp4",
+  "title": "Video Title"
+}`
+          }
+        },
         { name: "Facebook", method: "GET", link: "/api/download/fbdl?url=" },
         { name: "Instagram", method: "GET", link: "/api/download/igdl?url=" },
         { name: "Ytmp3", method: "GET", link: "/api/download/ytmp3?url=" },
@@ -251,7 +398,22 @@
         { name: "XNXX", method: "GET", link: "/api/download/xnxxdl?url=" }
       ],
       "Openai": [
-        { name: "Openai", method: "GET", link: "/api/ai/openai?msg=" },
+        { 
+          name: "Openai", 
+          method: "GET", 
+          link: "/api/ai/openai?msg=",
+          doc: {
+            description: "Mengakses model OpenAI untuk menghasilkan respons berdasarkan pesan.",
+            parameters: [
+              { name: "msg", type: "string", required: true, description: "Pesan atau prompt untuk OpenAI" }
+            ],
+            exampleRequest: "GET /api/ai/openai?msg=Hello%20world",
+            exampleResponse: `{
+  "status": "success",
+  "response": "Hello! How can I assist you today?"
+}`
+          }
+        },
         { name: "Openai Prompt", method: "GET", link: "/api/ai/openai-prompt?prompt=&msg=" },
         { name: "Blackbox", method: "GET", link: "/api/ai/blackbox?msg=" },
         { name: "DeepSeek", method: "GET", link: "/api/ai/openai?msg=" },
@@ -270,7 +432,28 @@
         { name: "Bstation", method: "GET", link: "/api/search/bstation?q=" },
         { name: "Google Image", method: "GET", link: "/api/search/gimage?q=" },
         { name: "Pinterest", method: "GET", link: "/api/search/pinterest?q=" },
-        { name: "Playstore", method: "GET", link: "/api/search/playstore?q=" },
+        { 
+          name: "Playstore", 
+          method: "GET", 
+          link: "/api/search/playstore?q=",
+          doc: {
+            description: "Mencari aplikasi di Play Store berdasarkan query atau URL.",
+            parameters: [
+              { name: "q", type: "string", required: true, description: "Query pencarian atau URL aplikasi di Play Store" },
+              { name: "x-api-key", type: "string", required: false, description: "API key untuk autentikasi (opsional jika sudah login)" }
+            ],
+            exampleRequest: "GET /api/search/playstore?q=Instagram",
+            exampleResponse: `{
+  "status": "success",
+  "data": {
+    "name": "Instagram",
+    "developer": "Instagram",
+    "rating": 4.5,
+    "downloads": "1B+"
+  }
+}`
+          }
+        },
         { name: "Fdroid", method: "GET", link: "/api/search/fdroid?q=" },
         { name: "Youtube Search", method: "GET", link: "/api/search/ytsearch?q=" },
         { name: "Happymod", method: "GET", link: "/api/search/happymod?q=" },
@@ -300,12 +483,28 @@
 
     const kategoriList = document.getElementById("kategoriList");
     const kontenApi = document.getElementById("kontenApi");
+    const kontenDokumentasi = document.getElementById("kontenDokumentasi");
     const totalApi = document.getElementById("totalApi");
     const toggleSidebar = document.getElementById("toggleSidebar");
     const sidebar = document.querySelector(".sidebar");
 
     let total = 0;
 
+    // Tambah link Dokumentasi ke sidebar
+    const docLi = document.createElement("li");
+    docLi.textContent = "Dokumentasi API";
+    docLi.setAttribute("tabindex", "0");
+    docLi.addEventListener("click", () => {
+      document.getElementById("dokumentasi").scrollIntoView({ behavior: "smooth" });
+    });
+    docLi.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        document.getElementById("dokumentasi").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+    kategoriList.appendChild(docLi);
+
+    // Render Kategori API
     for (const kategori in dataApi) {
       const li = document.createElement("li");
       li.textContent = kategori;
@@ -342,6 +541,103 @@
       });
 
       kontenApi.appendChild(card);
+    }
+
+    // Render Dokumentasi API
+    for (const kategori in dataApi) {
+      const docCard = document.createElement("div");
+      docCard.className = "doc-card";
+      const title = document.createElement("h3");
+      title.textContent = kategori;
+      title.setAttribute("lang", "id");
+      docCard.appendChild(title);
+
+      dataApi[kategori].forEach(api => {
+        if (api.doc) {
+          const docDiv = document.createElement("div");
+          docDiv.innerHTML = `
+            <h4>${api.name}</h4>
+            <p>${api.doc.description}</p>
+            <h5>Parameter</h5>
+            <table>
+              <tr>
+                <th>Nama</th>
+                <th>Tipe</th>
+                <th>Wajib</th>
+                <th>Deskripsi</th>
+              </tr>
+              ${api.doc.parameters.map(param => `
+                <tr>
+                  <td>${param.name}</td>
+                  <td>${param.type}</td>
+                  <td>${param.required ? "Ya" : "Tidak"}</td>
+                  <td>${param.description}</td>
+                </tr>
+              `).join("")}
+            </table>
+            <h5>Try It Out</h5>
+            <form class="api-form" id="form-${kategori}-${api.name.replace(/\s+/g, "-")}">
+              ${api.doc.parameters.map(param => `
+                <div>
+                  <label for="${param.name}-${kategori}-${api.name.replace(/\s+/g, "-")}">${param.name} ${param.required ? '<span style="color: #e94560;">*</span>' : ''}</label>
+                  <input type="text" id="${param.name}-${kategori}-${api.name.replace(/\s+/g, "-")}" name="${param.name}" placeholder="${param.description}" ${param.required ? 'required' : ''}>
+                </div>
+              `).join("")}
+              <button type="submit" class="execute-btn">Execute</button>
+            </form>
+            <div class="response-section" id="response-${kategori}-${api.name.replace(/\s+/g, "-")}">
+              <h5>Response</h5>
+              <pre>Waiting for execution...</pre>
+            </div>
+            <h5>Contoh Request</h5>
+            <pre>${api.doc.exampleRequest}</pre>
+            <h5>Contoh Response</h5>
+            <pre>${api.doc.exampleResponse}</pre>
+          `;
+          docCard.appendChild(docDiv);
+
+          // Tambah event listener untuk form
+          const form = docDiv.querySelector(`#form-${kategori}-${api.name.replace(/\s+/g, "-")}`);
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const responseDiv = docDiv.querySelector(`#response-${kategori}-${api.name.replace(/\s+/g, "-")} pre`);
+            responseDiv.textContent = "Loading...";
+
+            // Bangun URL berdasarkan input
+            let url = `https://api.riicode.my.id${api.link.split("?")[0]}`;
+            const params = new URLSearchParams();
+            const headers = {};
+
+            api.doc.parameters.forEach(param => {
+              const input = form.querySelector(`input[name="${param.name}"]`);
+              if (input.value) {
+                if (param.name === "x-api-key") {
+                  headers["x-api-key"] = input.value;
+                } else {
+                  params.append(param.name, input.value);
+                }
+              }
+            });
+
+            url += `?${params.toString()}`;
+
+            try {
+              const response = await fetch(url, {
+                method: api.method,
+                headers: headers
+              });
+              const data = await response.json();
+              responseDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+              responseDiv.textContent = `Error: ${error.message}`;
+            }
+          });
+        }
+      });
+
+      if (docCard.children.length > 1) { // Hanya tambah jika ada dokumentasi
+        kontenDokumentasi.appendChild(docCard);
+      }
     }
 
     totalApi.textContent = total;
