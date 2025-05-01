@@ -189,11 +189,6 @@
       border-bottom: 2px solid #0f3460;
       padding-bottom: 8px;
     }
-    .doc-card h4 {
-      font-size: 18px;
-      margin: 15px 0 10px;
-      color: #fff;
-    }
     .doc-card pre {
       background: #0f3460;
       padding: 15px;
@@ -216,50 +211,6 @@
     .doc-card th {
       background: #0f3460;
       font-weight: bold;
-    }
-    /* Styling untuk form interaktif */
-    .api-form {
-      margin: 15px 0;
-      padding: 15px;
-      background: #0f3460;
-      border-radius: 6px;
-    }
-    .api-form label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      color: #fff;
-    }
-    .api-form input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: none;
-      border-radius: 4px;
-      background: #1a1a2e;
-      color: #fff;
-    }
-    .api-form input:focus {
-      outline: 2px solid #e94560;
-    }
-    .api-form .execute-btn {
-      background: #1e88e5;
-      color: #fff;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .api-form .execute-btn:hover {
-      background: #1565c0;
-    }
-    .response-section {
-      margin-top: 15px;
-    }
-    .response-section h5 {
-      margin-bottom: 10px;
-      color: #fff;
     }
     footer {
       background: #16213e;
@@ -385,6 +336,7 @@
 }`
           }
         },
+        // Tambahan dokumentasi untuk endpoint lain bisa ditambahkan di sini
         { name: "Facebook", method: "GET", link: "/api/download/fbdl?url=" },
         { name: "Instagram", method: "GET", link: "/api/download/igdl?url=" },
         { name: "Ytmp3", method: "GET", link: "/api/download/ytmp3?url=" },
@@ -414,6 +366,7 @@
 }`
           }
         },
+        // Tambahan dokumentasi untuk endpoint lain bisa ditambahkan di sini
         { name: "Openai Prompt", method: "GET", link: "/api/ai/openai-prompt?prompt=&msg=" },
         { name: "Blackbox", method: "GET", link: "/api/ai/blackbox?msg=" },
         { name: "DeepSeek", method: "GET", link: "/api/ai/openai?msg=" },
@@ -422,6 +375,7 @@
         { name: "Gemini", method: "GET", link: "/api/ai/gemini?text=" },
         { name: "Sim Simipta", method: "GET", link: "/api/ai/simsimi?msg=" }
       ],
+      // Kategori lainnya tetap sama, bisa ditambahkan dokumentasi jika diperlukan
       "Tools": [
         { name: "Tinyurl", method: "GET", link: "/api/tools/tinyurl?url=" },
         { name: "Isgd", method: "GET", link: "/api/tools/isgd?url=" },
@@ -432,28 +386,7 @@
         { name: "Bstation", method: "GET", link: "/api/search/bstation?q=" },
         { name: "Google Image", method: "GET", link: "/api/search/gimage?q=" },
         { name: "Pinterest", method: "GET", link: "/api/search/pinterest?q=" },
-        { 
-          name: "Playstore", 
-          method: "GET", 
-          link: "/api/search/playstore?q=",
-          doc: {
-            description: "Mencari aplikasi di Play Store berdasarkan query atau URL.",
-            parameters: [
-              { name: "q", type: "string", required: true, description: "Query pencarian atau URL aplikasi di Play Store" },
-              { name: "x-api-key", type: "string", required: false, description: "API key untuk autentikasi (opsional jika sudah login)" }
-            ],
-            exampleRequest: "GET /api/search/playstore?q=Instagram",
-            exampleResponse: `{
-  "status": "success",
-  "data": {
-    "name": "Instagram",
-    "developer": "Instagram",
-    "rating": 4.5,
-    "downloads": "1B+"
-  }
-}`
-          }
-        },
+        { name: "Playstore", method: "GET", link: "/api/search/playstore?q=" },
         { name: "Fdroid", method: "GET", link: "/api/search/fdroid?q=" },
         { name: "Youtube Search", method: "GET", link: "/api/search/ytsearch?q=" },
         { name: "Happymod", method: "GET", link: "/api/search/happymod?q=" },
@@ -575,63 +508,12 @@
                 </tr>
               `).join("")}
             </table>
-            <h5>Try It Out</h5>
-            <form class="api-form" id="form-${kategori}-${api.name.replace(/\s+/g, "-")}">
-              ${api.doc.parameters.map(param => `
-                <div>
-                  <label for="${param.name}-${kategori}-${api.name.replace(/\s+/g, "-")}">${param.name} ${param.required ? '<span style="color: #e94560;">*</span>' : ''}</label>
-                  <input type="text" id="${param.name}-${kategori}-${api.name.replace(/\s+/g, "-")}" name="${param.name}" placeholder="${param.description}" ${param.required ? 'required' : ''}>
-                </div>
-              `).join("")}
-              <button type="submit" class="execute-btn">Execute</button>
-            </form>
-            <div class="response-section" id="response-${kategori}-${api.name.replace(/\s+/g, "-")}">
-              <h5>Response</h5>
-              <pre>Waiting for execution...</pre>
-            </div>
             <h5>Contoh Request</h5>
             <pre>${api.doc.exampleRequest}</pre>
             <h5>Contoh Response</h5>
             <pre>${api.doc.exampleResponse}</pre>
           `;
           docCard.appendChild(docDiv);
-
-          // Tambah event listener untuk form
-          const form = docDiv.querySelector(`#form-${kategori}-${api.name.replace(/\s+/g, "-")}`);
-          form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const responseDiv = docDiv.querySelector(`#response-${kategori}-${api.name.replace(/\s+/g, "-")} pre`);
-            responseDiv.textContent = "Loading...";
-
-            // Bangun URL berdasarkan input
-            let url = `https://api.riicode.my.id${api.link.split("?")[0]}`;
-            const params = new URLSearchParams();
-            const headers = {};
-
-            api.doc.parameters.forEach(param => {
-              const input = form.querySelector(`input[name="${param.name}"]`);
-              if (input.value) {
-                if (param.name === "x-api-key") {
-                  headers["x-api-key"] = input.value;
-                } else {
-                  params.append(param.name, input.value);
-                }
-              }
-            });
-
-            url += `?${params.toString()}`;
-
-            try {
-              const response = await fetch(url, {
-                method: api.method,
-                headers: headers
-              });
-              const data = await response.json();
-              responseDiv.textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-              responseDiv.textContent = `Error: ${error.message}`;
-            }
-          });
         }
       });
 
