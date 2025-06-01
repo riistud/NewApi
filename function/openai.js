@@ -2,7 +2,7 @@ const Groq = require('groq-sdk');
 const { creator } = require("../settings.js"); // Pastikan settings.js ada
 
 let apiKeys = [
-  "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"
+  "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"
 ];
 
 let apiKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
